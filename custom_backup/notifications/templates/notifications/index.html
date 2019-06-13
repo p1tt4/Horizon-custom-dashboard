@@ -1,0 +1,14 @@
+{% extends 'mistral/default/table.html' %}
+{% load i18n %}
+{% block title %}{% trans "Notifications" %}{% endblock %}
+
+{% block css %}
+  {% include "_stylesheets.html" %}
+
+{% endblock %}
+
+
+
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=_("Notifications") %}
+{% endblock page_header %}

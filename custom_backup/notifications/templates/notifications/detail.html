@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "BackupJob Details"%}{% endblock %}
+
+
+{% block page_header %}
+    <h1>
+        {% trans "BackupJob Details" %}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ index_url }}" title="Cron Triggers">
+            BackupJobs
+        </a>
+        </li>
+        <li class="active" title={{ notification.name }}>
+            {{ notification.name }}
+        </li>
+    </ol>
+{% endblock page_header %}
+
+{% block main %}
+    {% load i18n sizeformat %}
+    <div class="detail">
+        <h4>{% trans "Overview" %}</h4>
+        <hr class="header_rule">
+        <dl class="dl-horizontal">
+            <dt>{% trans "Name" %}</dt>
+            <dd>{{ notification.name }}</dd>
+            <dt>{% trans "ID" %}</dt>
+            <dd>{{ notification.id }}</dd>
+            <dt>{% trans "Sender" %}</dt>
+            <dd>{{ notification.sender_address }}</dd>
+            <dt>{% trans "Recipient" %}</dt>
+            <dd>{{ notification.recipient_address }}</dd>
+            <dt>{% trans "SMTP Server" %}</dt>
+            <dd>{{ notification.smtp_server }}</dd>
+            <dt>{% trans "Openstack URL" %}</dt>
+            <dd>{{ notification.openstack_url }}</dd>
+            <br/>
+
+            <dt>{% trans "Creation Time" %}</dt>
+            <dd>{{ notification.creation_time }}</dd>
+            <dt>{% trans "Time Since Created" %}</dt>
+            <dd>{{ notification.creation_time|timesince }}</dd>
+            <br/>
+
+        </dl>
+    </div>
+
+    {% if backup_jobs %}
+    <div class="detail">
+        <h4>{% trans "Used in the following BackupJobss" %}</h4>
+        <hr class="header_rule">
+        <dl class="dl-horizontal">
+            {% for backup_job in backup_jobs %}
+            <ul>
+                <li>
+                    <dt>{% trans "BackupJob" %}</dt>
+                    <dd>
+                        <a href="{% url 'detail' backup_job.id %}">{{ backup_job.name }}</a>
+                    </dd>
+                </li>
+            </ul>
+            {% endfor %}
+        </dl>
+    </div>
+    {% endif %}
+{% endblock %}

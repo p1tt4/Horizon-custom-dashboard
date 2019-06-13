@@ -1,0 +1,86 @@
+{% load i18n %}
+<noscript><h3>{{ step }}</h3></noscript>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group required">
+            <label class="control-label  required" for="{{ form.visible_fields.0.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.0.label }}</span>
+            </label>
+            <span class="hz-icon-required fa fa-asterisk"></span>
+            <div class=" ">
+                <input name="{{ form.visible_fields.0.name }}" id="{{ form.visible_fields.0.auto_id }}" required="" class="form-control" type="text" value="{{ form.visible_fields.0.initial }}" autocomplete="off">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group required">
+            <div class=" ">
+                <input name="{{ form.visible_fields.4.name }}" id="{{ form.visible_fields.4.auto_id }}" required="" class="form-control hidden-error-field" maxlength="0">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 metadata-fields">
+        <label class="control-label  required">
+            <span class="field-label">{% trans "Source" %}</span>
+        </label>
+        <span class="hz-icon-required fa fa-asterisk"></span>
+        <div class="form-group">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default workflow-btn {% if form.visible_fields.1.initial %} active {% endif %}" id="metadata-btn">
+                    <input type="radio">{% trans "Metadata" %}
+                </label>
+                <label class="btn btn-default workflow-btn {% if form.visible_fields.3.initial %} active {% endif %}" id="instance-btn">
+                    <input type="radio">{% trans "Instance" %}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row {% if not form.visible_fields.1.initial %} hidden-elem {% endif %}" id="metadata-row">
+    <div class="col-sm-12 metadata-fields">
+        <div class="form-group">
+            <div>
+                <label class="control-label  " for="{{ form.visible_fields.1.auto_id }}">
+                    <span class="field-label">{% trans "Key" %}</span>
+                </label>
+                <div class="metadata-field">
+                    <input name="{{ form.visible_fields.1.name }}" id="{{ form.visible_fields.1.auto_id }}" class="form-control" maxlength="10" type="text" value="{{ form.visible_fields.1.initial }}" autocomplete="off">
+                </div>
+            </div>
+            <div>
+                <label class="control-label  " for="{{ form.visible_fields.2.auto_id }}">
+                    <span class="field-label">{% trans "Value" %}</span>
+                </label>
+                <div class="metadata-field">
+                    <input name="{{ form.visible_fields.2.name }}" id="{{ form.visible_fields.2.auto_id }}" class="form-control" maxlength="10" type="text" value="{{ form.visible_fields.2.initial }}" autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row {% if not form.visible_fields.3.initial %} hidden-elem {% endif %}" id="instance-row">
+    <div class="col-sm-12">
+        <div class="form-group ">
+            <label class="control-label  " for="{{ form.visible_fields.3.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.3.label }}</span>
+            </label>
+            <div class=" ">
+                <select name="{{ form.visible_fields.3.name }}" class="form-control" id="{{ form.visible_fields.3.auto_id }}">
+                    {% for option in form.fields.instance.choices %}
+                    <option value="{{ option.0 }}" {% if form.visible_fields.3.initial == option.0 %} selected="selected" {% endif %}>{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+

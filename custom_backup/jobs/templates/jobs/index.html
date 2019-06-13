@@ -1,0 +1,22 @@
+{% extends 'mistral/default/table.html' %}
+{% load i18n %}
+{% block title %}{% trans "Jobs" %}{% endblock %}
+
+{% block css %}
+  {% include "_stylesheets.html" %}
+
+  {% load compress %}
+  {% compress css %}
+  <link href='{{ STATIC_URL }}custom_backup/scss/custom_backup.css' type='text/css' media='screen' rel='stylesheet' />
+  {% endcompress %}
+{% endblock %}
+
+
+{% block js %}
+  {% include "horizon/_scripts.html" %}
+   <script src='{{ STATIC_URL }}custom_backup/js/custom_backup.js' type='text/javascript' charset='utf-8'></script>
+{% endblock %}
+
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=_("Jobs") %}
+{% endblock page_header %}

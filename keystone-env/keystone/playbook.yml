@@ -1,0 +1,54 @@
+- hosts: localhost
+  vars:
+    database_ip: 192.168.200.3
+    database_name: 'keystone'
+    db_user: "{{ lookup('env', 'DB_USER') }}"
+    user_passwd: "{{ lookup('env','USER_PASSWD') }}"
+    root_passwd: "{{ lookup('env','ROOT_PASSWD') }}"
+
+  tasks:
+    - name: fail if db_user is null
+      fail:
+        msg: "DB_USER env variable not set"
+      when: not db_user
+
+    - name: fail if user_passwd is null
+      fail:
+        msg: "USER_PASSWD env variable not set"
+      when: not user_passwd
+
+    - name: fail if root_passwd is null
+      fail:
+        msg: "ROOT_PASSWD env variable not set"
+      when: not root_passwd
+
+    - name: add user to DB
+      mysql_user:
+        login_host: "{{ database_ip }}"
+        login_port: 3306
+        login_user: root
+        login_password: "{{ root_passwd }}"
+        name: "{{ db_user }}"
+        host: '%'
+        password: "{{ user_passwd }}"
+        priv: "{{ database_name }}.*:ALL,GRANT"
+        state: present
+
+    - name: comment existing DB connection line
+      lineinfile:
+        path: /etc/keystone/keystone.conf
+        regexp: '^connection = sqlite:////var/lib/keystone/{{ database_name }}.db$'
+        line: "# connection = sqlite:////var/lib/keystone/{{ database_name }}.db"
+        firstmatch: yes
+
+    - name: add DB connection conf line
+      lineinfile:
+        path: /etc/keystone/keystone.conf
+        insertafter: '^\[database\][\s]*$'
+        line: "connection = mysql+pymysql://{{ db_user }}:{{ user_passwd }}@{{ database_ip }}/{{ database_name }}"
+
+    - name: comment out [token] conf line
+      lineinfile:
+        path: /etc/keystone/keystone.conf
+        insertafter: '^\[token\][\s]*$'
+        line: 'provider = fernet'

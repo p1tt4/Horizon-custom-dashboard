@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "BackupJob Details"%}{% endblock %}
+
+
+{% block page_header %}
+    <h1>
+        {% trans "BackupJob Details" %}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ list_url }}" title="{% trans 'Cron Triggers' %}>
+            BackupJobs
+        </a>
+        </li>
+        <li class="active" title={{ backup_job.name }}>
+            {{ backup_job.name }}
+        </li>
+    </ol>
+{% endblock page_header %}
+
+{% block main %}
+    {% load i18n sizeformat %}
+    <div class="detail">
+        <h4>{% trans "Overview" %}</h4>
+        <hr class="header_rule">
+        <dl class="dl-horizontal">
+            <dt>{% trans "Name" %}</dt>
+            <dd>{{ backup_job.name }}</dd>
+            <dt>{% trans "ID" %}</dt>
+            <dd>{{ backup_job.id }}</dd>
+            <dt>{% trans "Pattern" %}</dt>
+            <dd>{{ backup_job.pattern }}</dd>
+            <br/>
+
+            <dt>{% trans "Creation Time" %}</dt>
+            <dd>{{ backup_job.creation_time }}</dd>
+            <dt>{% trans "Time Since Created" %}</dt>
+            <dd>{{ backup_job.creation_time|timesince }}</dd>
+            <br/>
+
+        </dl>
+    </div>
+
+    <div class="detail">
+        <h4>{% trans "Cron Trigger" %}</h4>
+        <hr class="header_rule">
+        <dl class="dl-horizontal">
+            <dt>{% trans "Cron Trigger Name" %}</dt>
+            <dd>
+                <a href="{{ cron_trigger_details_url }}">{{ cron_trigger_name }}</a>
+            </dd>
+        </dl>
+    </div>
+{% endblock %}

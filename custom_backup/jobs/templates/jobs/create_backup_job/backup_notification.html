@@ -1,0 +1,19 @@
+{% load i18n %}
+<noscript><h3>{{ step }}</h3></noscript>
+
+<div class="row" id="notification-row">
+    <div class="col-sm-12">
+        <div class="form-group ">
+            <label class="control-label  " for="{{ form.visible_fields.0.auto_id }}">
+                <span class="field-label">{% trans "Select the notification configuration that you want to associate with this BackupJob" %}</span>
+            </label>
+            <div class=" ">
+                <select name="{{ form.visible_fields.0.name }}" class="form-control" id="{{ form.visible_fields.0.auto_id }}">
+                    {% for option in form.fields.notification.choices %}
+                    <option value="{{ option.0 }}" {% if form.visible_fields.0.initial == option.0 %} selected="selected" {% endif %}>{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

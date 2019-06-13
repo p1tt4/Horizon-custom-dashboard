@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  keystone:
+    build:
+      context: keystone
+    depends_on:
+      - keystonedb
+    container_name: keystone
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+      - DB_USER=keystone
+      - USER_PASSWD=password
+      - ROOT_PASSWD=secret
+    networks:
+      custom_network:
+        ipv4_address: 192.168.200.2
+
+  keystonedb:
+    image: mariadb
+    container_name: keystone-db
+#    command: bash -c "mysqld --user=root --initialize"
+#    command: bash -c "mysql_install_db --user=root"
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=keystone
+      - MYSQL_USER=stduser
+      - MYSQL_PASSWORD=password
+    volumes:
+      - keystone_db:/var/lib/mysql/data
+    networks:
+      custom_network:
+        ipv4_address: 192.168.200.3
+    ports:
+      - "3307:3307"
+
+  memcache:
+    image: memcached
+    container_name: keystone-memcache
+    networks:
+      custom_network:
+        ipv4_address: 192.168.200.4
+    ports:
+      - "11211:11211"
+
+volumes:
+  keystone_db:
+
+networks:
+  custom_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.200.0/24"
+

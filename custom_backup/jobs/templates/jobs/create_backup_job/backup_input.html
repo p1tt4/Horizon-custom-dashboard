@@ -1,0 +1,138 @@
+{% load i18n %}
+<noscript><h3>{{ step }}</h3></noscript>
+
+<div class="row">
+    <div class="col-sm-12 workflow-fields">
+        <div class="col-sm-8">
+            <label class="control-label">
+                <span class="field-label">{% trans "Stop instance" %}</span>
+            </label>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group" id="stop-pause-toggle">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default workflow-btn">
+                        <input name="{{ form.visible_fields.0.name }}" value="True" id="{{ form.visible_fields.0.auto_id }}_0" type="radio">{% trans "Yes" %}
+                    </label>
+                    <label class="btn btn-default workflow-btn active">
+                        <input name="{{ form.visible_fields.0.name }}" value="False" id="{{ form.visible_fields.0.auto_id }}_1" type="radio">{% trans "No" %}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 workflow-fields">
+        <div class="col-sm-8">
+            <label class="control-label">
+                <span class="field-label">{% trans "Pause instance" %}</span>
+            </label>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default workflow-btn">
+                        <input name="{{ form.visible_fields.1.name }}" value="True" id="{{ form.visible_fields.1.auto_id }}_0" type="radio">{% trans "Yes" %}
+                    </label>
+                    <label class="btn btn-default workflow-btn active">
+                        <input name="{{ form.visible_fields.1.name }}" value="False" id="{{ form.visible_fields.1.auto_id }}_1" type="radio">{% trans "No" %}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 workflow-fields">
+        <div class="col-sm-8">
+            <label class="control-label">
+                <span class="field-label">{% trans "Backup mode" %}</span>
+            </label>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group ">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default workflow-btn active" id="backup-mode-btn">
+                        <input name="{{ form.visible_fields.2.name }}" value="True" id="{{ form.visible_fields.2.auto_id }}_0" type="radio">{% trans "Backup" %}
+                    </label>
+                    <label class="btn btn-default workflow-btn" id="snapshot-mode-btn">
+                        <input name="{{ form.visible_fields.2.name }}" value="False" id="{{ form.visible_fields.2.auto_id }}_1" type="radio">{% trans "Snapshot" %}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="backup-collapse">
+    <div class="col-sm-12 workflow-fields">
+        <div class="col-sm-8">
+            <label class="control-label  ">
+                <span class="control-label">{{ form.visible_fields.3.label }}</span>
+            </label>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group ">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default workflow-btn">
+                        <input name="{{ form.visible_fields.3.name }}" value="True" id="{{ form.visible_fields.3.auto_id }}_0" type="radio">{% trans "Yes" %}
+                    </label>
+                    <label class="btn btn-default workflow-btn active">
+                        <input name="{{ form.visible_fields.3.name }}" value="False" id="{{ form.visible_fields.3.auto_id }}_1" type="radio">{% trans "No" %}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 workflow-fields">
+        <div class="col-sm-8">
+            <label class="control-label  " for="{{ form.visible_fields.4.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.4.label }}</span>
+            </label>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group ">
+                <input name="{{ form.visible_fields.4.name }}" value="0" class="form-control workflow-integer-param" id="{{ form.visible_fields.4.auto_id }}" type="text" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 workflow-fields">
+        <div class="col-sm-8">
+            <label class="control-label  " for="{{ form.visible_fields.6.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.6.label }}</span>
+            </label>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group ">
+                <select name="{{ form.visible_fields.6.name }}" class="form-control" id="{{ form.visible_fields.6.auto_id }}">
+                    {% for option in form.fields.backup_type.choices %}
+                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row hidden-elem" id="snapshot-collapse">
+    <div class="col-sm-12 workflow-fields">
+        <div class="col-sm-8">
+            <label class="control-label  " for="{{ form.visible_fields.5.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.4.label }}</span>
+            </label>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group ">
+                <input name="{{ form.visible_fields.5.name }}" value="0" class="form-control workflow-integer-param" id="{{ form.visible_fields.5.auto_id }}" type="text" autocomplete="off">
+            </div>
+        </div>
+    </div>
+</div>
+
+

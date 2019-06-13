@@ -1,0 +1,83 @@
+<noscript><h3>{{ step }}</h3></noscript>
+
+<div class="row">
+    <div class="col-sm-12 help-container">
+        <span class="field-label">Set the Cron schedule pattern</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-2">
+        <div class="form-group ">
+            <label class="control-label  " for="{{ form.visible_fields.0.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.0.label }}</span></label>
+            <div class=" ">
+                <select name="{{ form.visible_fields.0.name }}" class="form-control" id="{{ form.visible_fields.0.auto_id }}">
+                    {% for option in form.fields.minute.choices %}
+                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="form-group ">
+            <label class="control-label  " for="{{ form.visible_fields.1.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.1.label }}</span>
+            </label>
+            <div class=" ">
+                <select name="{{ form.visible_fields.1.name }}" class="form-control" id="{{ form.visible_fields.1.auto_id }}">
+                    {% for option in form.fields.hour.choices %}
+                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="form-group ">
+            <label class="control-label  " for="{{ form.visible_fields.2.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.2.label }}</span>
+            </label>
+            <div class=" ">
+                <select name="{{ form.visible_fields.2.name }}" class="form-control" id="{{ form.visible_fields.2.auto_id }}">
+                    {% for option in form.fields.day.choices %}
+                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group ">
+            <label class="control-label  " for="{{ form.visible_fields.3.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.3.label }}</span>
+            </label>
+            <div class=" ">
+                <select name="{{ form.visible_fields.3.name }}" class="form-control" id="{{ form.visible_fields.3.auto_id }}">
+                    {% for option in form.fields.month.choices %}
+                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group ">
+            <label class="control-label  " for="{{ form.visible_fields.4.auto_id }}">
+                <span class="field-label">{{ form.visible_fields.4.label }}</span>
+            </label>
+            <div class=" ">
+                <select name="{{ form.visible_fields.4.name }}" class="form-control" id="{{ form.visible_fields.4.auto_id }}">
+                    {% for option in form.fields.weekday.choices %}
+                    <option value="{{ option.0 }}">{{ option.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+/* Additional SCSS for {{ dash_name }}. */
+.metadata-fields {
+    width: 100%;
+}
+.workflow-integer-param {
+    width: 63%;
+}
+.hidden-elem {
+    display: none;
+	height: 0;
+	overflow: hidden;
+	transition: height 300ms ease-in-out;
+}
+.is-visible {
+	display: block;
+	height: auto;
+}
+.help-container {
+    height: 40px;
+}
+.metadata-fields span {
+    font-weight: bold;
+}
+.workflow-fields {
+    margin-bottom: 2%;
+}
+.metadata-fields div.form-group,
+.workflow-fields div.form-group {
+    display: flex;
+}
+.metadata-field {
+    margin-right: 50%;
+}
+.hz-icon-required {
+    color: #428bca;
+}
+#id_error_field {
+    display: none;
+}
