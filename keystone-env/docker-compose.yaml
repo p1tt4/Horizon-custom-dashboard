@@ -9,18 +9,21 @@ services:
     container_name: keystone
     environment:
       - DEBIAN_FRONTEND=noninteractive
-      - DB_USER=keystone
+      - DB_USER=stduser
       - USER_PASSWD=password
       - ROOT_PASSWD=secret
     networks:
       custom_network:
         ipv4_address: 192.168.200.2
+    ports:
+      - "5000:5000"
+      - "35357:35357"
 
+  # mind that the database name is hard wired within the playbook.yml, so
+  # if it's changed here, it also must be updated in the other file
   keystonedb:
     image: mariadb
     container_name: keystone-db
-#    command: bash -c "mysqld --user=root --initialize"
-#    command: bash -c "mysql_install_db --user=root"
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=keystone
@@ -32,7 +35,7 @@ services:
       custom_network:
         ipv4_address: 192.168.200.3
     ports:
-      - "3307:3307"
+      - "3306:3306"
 
   memcache:
     image: memcached
@@ -42,6 +45,7 @@ services:
         ipv4_address: 192.168.200.4
     ports:
       - "11211:11211"
+
 
 volumes:
   keystone_db:

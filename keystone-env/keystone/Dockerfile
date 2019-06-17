@@ -23,6 +23,15 @@ RUN apt -y install keystone \
 ADD entrypoint.sh /
 ADD playbook.yml /
 
+ENV OS_USERNAME admin
+ENV OS_PASSWORD secret
+ENV OS_PROJECT_NAME admin
+ENV OS_USER_DOMAIN_NAME Default
+ENV OS_PROJECT_DOMAIN_NAME Default
+ENV OS_AUTH_URL http://controller:5000/v3
+ENV OS_IDENTITY_API_VERSION 3
+
+
 #ENTRYPOINT [ "/entrypoint.sh" ]
 
 CMD /bin/sh entrypoint.sh && tail -f /dev/null
