@@ -15,8 +15,8 @@ echo "Populating the Identity service database"
 /bin/sh -c "keystone-manage db_sync" "${DATABASE_NAME}"
 
 echo "Initializing Fernet key repositories"
-`keystone-manage fernet_setup --keystone-user ${DB_USER} --keystone-group "${keystone_group}"`
-`keystone-manage credential_setup --keystone-user ${DB_USER} --keystone-group "${keystone_group}"`
+`keystone-manage fernet_setup --keystone-user keystone --keystone-group "${keystone_group}"`
+`keystone-manage credential_setup --keystone-user keystone --keystone-group "${keystone_group}"`
 
 echo "Bootstraping the Identity service"
 `keystone-manage bootstrap --bootstrap-password ${USER_PASSWD} --bootstrap-admin-url http://${controller_server_name}:35357/v3/ --bootstrap-internal-url http://${controller_server_name}:35357/v3/ --bootstrap-public-url http://${controller_server_name}:5000/v3/ --bootstrap-region-id RegionOne`

@@ -6,10 +6,10 @@ services:
       context: keystone
     depends_on:
       - keystonedb
-    container_name: keystone
+    container_name: keystone-service
     environment:
       - DEBIAN_FRONTEND=noninteractive
-      - DB_USER=stduser
+      - DB_USER=keystone
       - USER_PASSWD=password
       - ROOT_PASSWD=secret
     networks:
@@ -22,12 +22,12 @@ services:
   # mind that the database name is hard wired within the playbook.yml, so
   # if it's changed here, it also must be updated in the other file
   keystonedb:
-    image: mariadb
+    image: mariadb:10.2
     container_name: keystone-db
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=keystone
-      - MYSQL_USER=stduser
+      - MYSQL_USER=keystone
       - MYSQL_PASSWORD=password
     volumes:
       - keystone_db:/var/lib/mysql/data
@@ -45,7 +45,6 @@ services:
         ipv4_address: 192.168.200.4
     ports:
       - "11211:11211"
-
 
 volumes:
   keystone_db:

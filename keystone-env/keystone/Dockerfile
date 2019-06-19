@@ -28,10 +28,9 @@ ENV OS_PASSWORD secret
 ENV OS_PROJECT_NAME admin
 ENV OS_USER_DOMAIN_NAME Default
 ENV OS_PROJECT_DOMAIN_NAME Default
-ENV OS_AUTH_URL http://controller:5000/v3
+ENV OS_AUTH_URL http://controller:35357/v3
 ENV OS_IDENTITY_API_VERSION 3
 
-
-#ENTRYPOINT [ "/entrypoint.sh" ]
+# ENTRYPOINT ["/entrypoint.sh"]
 
 CMD /bin/sh entrypoint.sh && tail -f /dev/null

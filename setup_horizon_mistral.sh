@@ -15,7 +15,7 @@ horizon_git='https://github.com/openstack/horizon.git'
 mistral_git='https://github.com/openstack/mistral-dashboard.git'
 branch='stable/pike'
 manage_py='tox -evenv python manage.py'
-enabled_file='_60_settings.py'
+enabled_file='_50_custom_backup.py'
 
 
 err() {
@@ -36,25 +36,29 @@ install_venv() {
 enable_custom_dashboard() {
     log "Enabling dashboard"
     echo "# The name of the dashboard to be added to HORIZON['dashboards']
-DASHBOARD = 'custom_dashboard'
+DASHBOARD = 'custom_backup'
 # If set to True, this dashboard will not be added to the settings
 DISABLED = False
-" > "${horizon_dir}/openstack_dashboard/local/enabled/${enabled_file}"
+" > "${horizon_dir}/openstack_dashboard/enabled/${enabled_file}"
 }
 
 enable_mistral_dashboard() {
     log "Enabling Mistral"
     cp -b "${mistral_dir}/mistraldashboard/enabled/_50_mistral.py" "${horizon_dir}/openstack_dashboard/local/enabled/_50_mistral.py"
+    cp -b "${mistral_dir}/mistraldashboard/enabled/_50_mistral.py" "${horizon_dir}/openstack_dashboard/enabled/_50_mistral.py"
+}
+
+install_tox() {
+	pip install tox
 }
 
 update_requirements() {
     log "Updating requirements file"
     echo "
-    python-memcached==1.58
-    mysqlclient==1.4.2
-    tox==3.12.1
-    -e ../mistral-dashboard/
-    " >> "${horizon_dir}/requirements.txt"
+python-memcached==1.58
+mysqlclient==1.4.2
+-e ../mistral-dashboard/
+" >> requirements.txt
 }
 
 main() {
@@ -72,10 +76,11 @@ main() {
 
     cd "${horizon_dir}"
     update_requirements
+	install_tox
     enable_custom_dashboard
     enable_mistral_dashboard
 
-    tox -evenv python manage.py migrate --sync-db
+    tox -evenv python manage.py migrate
     tox -evenv python manage.py runserver
 
 }

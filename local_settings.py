@@ -194,7 +194,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'keystone',
-        'USER': 'stduser',
+        'USER': 'keystone',
         'PASSWORD': 'password',
         'HOST': '192.168.200.3',
         'PORT': '3306',
